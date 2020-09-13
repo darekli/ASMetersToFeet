@@ -2,6 +2,7 @@ package com.example.meterstofeet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -26,16 +27,17 @@ public class MainActivity extends AppCompatActivity {
         //CENTIMETERS
         EditText etCms = (EditText) findViewById(R.id.cms);
         etCms.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "99")});
-        String cmsString = etCms.getText().toString();
-        int cmsInt = Integer.parseInt(cmsString);
+       // String cmsString = etCms.getText().toString();
+        int cmsInt = Integer.parseInt(etCms.getText().toString());
 
         Log.i("meters: ", String.valueOf(metersInt));
         Log.i("centimeters: ", String.valueOf(cmsInt));
         Log.i("feet: ",getDimInFootString(metersInt, cmsInt));
        Log.i("inch: ",getLeftDimInInchString(metersInt,cmsInt));
 
-        Toast.makeText(this,"feet: "+getDimInFootString(metersInt, cmsInt), Toast.LENGTH_LONG).show();
-        Toast.makeText(this,"inch: "+getLeftDimInInchString(metersInt, cmsInt), Toast.LENGTH_LONG).show();
+        Toast.makeText(this,getDimInFootString(metersInt, cmsInt)+"' "+getLeftDimInInchString(metersInt,cmsInt)+"\"", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"inch: "+getLeftDimInInchString(metersInt, cmsInt), Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private final double ratioFItoM = 0.3048;
 
 
-    public int getDimInFoot(int meters, int centimeters) {
+    public double getDimInFoot(double meters, double centimeters) {
         int foot = (int) Math.ceil((((meters + (centimeters / 100)) * ratioMtoF) % 1) * 12);
         double footFloor = Math.floor((meters + (centimeters / 100)) * ratioMtoF);
         if (foot == 12) {
@@ -55,11 +57,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String getDimInFootString(int meters, int centimeters) {
-        return String.valueOf(getDimInFoot(meters, centimeters));
+    public String getDimInFootString(double meters, double centimeters) {
+        int feetInt = (int) getDimInFoot(meters, centimeters);
+        return String.valueOf(feetInt);
     }
 
-    public int getLeftDimInInch(int meters, int centimeters) {
+    public double getLeftDimInInch(double meters, double centimeters) {
         int inches = (int) Math.ceil((((meters + (centimeters / 100)) * ratioMtoF) % 1) * 12);
         if (inches == 12) {
             return 0;
@@ -67,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
             return inches;
         }
     }
-    private String getLeftDimInInchString(int meters, int centimeters) {
-        return String.valueOf(getLeftDimInInch(meters, centimeters));
+    private String getLeftDimInInchString(double meters, double centimeters) {
+        int inchInt = (int)getLeftDimInInch(meters, centimeters);
+        return String.valueOf(inchInt);
     }
 
 //    public String getDimInMeters() {
@@ -76,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
 //        String StringMeters2f = String.format("%.2f", meters);
 //        return StringMeters2f;
 //    }
-
+//ImageView imageView = (ImageView) findViewById(R.id.catImageView);
+//    Image.setImageResource(R.drowable.cat2);
 
 
 

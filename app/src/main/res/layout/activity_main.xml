@@ -12,30 +12,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="155dp"
         android:layout_marginLeft="155dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="98dp"
         android:layout_marginEnd="168dp"
         android:layout_marginRight="168dp"
         android:onClick="getMetersToFeet"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="135dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginLeft="128dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cms" />
+
 
     <EditText
         android:id="@+id/meters"
@@ -46,11 +31,10 @@
         android:layout_marginTop="106dp"
         android:layout_marginEnd="9dp"
         android:layout_marginRight="9dp"
-        android:layout_marginBottom="25dp"
         android:ems="10"
+        android:hint="meters"
         android:inputType="number"
         android:maxLength="2"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/cms"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,14 +48,29 @@
         android:layout_marginTop="106dp"
         android:layout_marginEnd="58dp"
         android:layout_marginRight="58dp"
-        android:layout_marginBottom="24dp"
         android:ems="10"
+        android:hint="centimeters"
         android:inputType="number"
-        android:maxLength="2"
 
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:maxLength="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/meters"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="402dp"
+        android:layout_height="753dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/signs600h" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
