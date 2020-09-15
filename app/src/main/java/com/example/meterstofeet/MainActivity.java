@@ -2,83 +2,129 @@ package com.example.meterstofeet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.Image;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
     TextView textView;
 
-    public void show(View view) {
-        textView.setVisibility(View.VISIBLE);
-    }
 
-    public void hide(View view) {
-        textView.setVisibility(View.INVISIBLE);
-    }
-
-    public void getMetersToFeet(View view) {
-        try {
+//
+//    public void show(View view) {
+//        textView.setVisibility(View.VISIBLE);
+//    }
+//
+//    public void hide(View view) {
+//        textView.setVisibility(View.INVISIBLE);
+//    }
+//
+//    public void getMetersToFeet(View view) {
+////        try {
 
 
 //METERS
-            EditText etM = (EditText) findViewById(R.id.meters);
-            etM.setFilters(new InputFilter[]{new InputFilterMinMax("0", "99")});
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        final TextView textViewMetersSeekBar = findViewById(R.id.textViewMetersFromSeekBar);
+       final TextView textViewInSign = findViewById(R.id.textViewInSign);
+        //EditText etM = (EditText) findViewById(R.id.meters);
+        //etM.setFilters(new InputFilter[]{new InputFilterMinMax("0", "99")});
+        seekBar.setMax(600);
+        seekBar.setProgress(5);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
+                int meters = i / 100;
+                int cms = i - (meters * 100);
+                String cmsString = Integer.toString(cms);
+                if (cms>0&&cms<10) {
+                    cmsString = "0"+cms;
+                }if(cms==00||cms==0){
+                    meters = i/100;
+                    cmsString="00";
+                }
 
-            String metersString = etM.getText().toString();
-            int metersInt = Integer.parseInt(metersString);
+                // EditText etCms = (EditText) findViewById(R.id.cms);
+                // etCms.setFilters(new InputFilter[]{new InputFilterMinMax("0", "99")});
+                // String cmsString = etCms.getText().toString();
+                //int cmsInt = Integer.parseInt(etCms.getText().toString());
+                // signTextView.setText(Integer.toString(meters));
+                int metersInt = Integer.parseInt(String.valueOf(meters));
+                // Toast.makeText(this, getDimInFootString(metersInt, cmsInt) + "' " + getLeftDimInInchString(metersInt, cmsInt) + "\"", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,"inch: "+getLeftDimInInchString(metersInt, cmsInt), Toast.LENGTH_LONG).show();
 
-            //CENTIMETERS
-            EditText etCms = (EditText) findViewById(R.id.cms);
-            etCms.setFilters(new InputFilter[]{new InputFilterMinMax("0", "99")});
-            // String cmsString = etCms.getText().toString();
-            int cmsInt = Integer.parseInt(etCms.getText().toString());
+                //signTextView.setText(getDimInFootString(metersInt, cmsInt) + "'-" + getLeftDimInInchString(metersInt, cmsInt) + "\"")
+                //
+                textViewMetersSeekBar.setText(Integer.toString(meters) + "." + cmsString+" meters");
+                textViewInSign.setText(getDimInFootString(metersInt, cms) + "'-" + getLeftDimInInchString(metersInt, cms) + "\"");
+
+               // Log.i("#$%@ ",Integer.toString(meters) + "." + cmsString);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        //String metersString = etM.getText().toString();
+        //int metersInt = Integer.parseInt(metersString);
 
 
-            Log.i("meters: ", String.valueOf(metersInt));
-            Log.i("centimeters: ", String.valueOf(cmsInt));
+        //CENTIMETERS
+//        EditText etCms = (EditText) findViewById(R.id.cms);
+//        etCms.setFilters(new InputFilter[]{new InputFilterMinMax("0", "99")});
+//        // String cmsString = etCms.getText().toString();
+//        int cmsInt = Integer.parseInt(etCms.getText().toString());
+//
+//
+//        // Log.i("meters: ", String.valueOf(metersInt));
+//        Log.i("centimeters: ", String.valueOf(cmsInt));
 
-            Log.i("feet: ", getDimInFootString(metersInt, cmsInt));
-            Log.i("inch: ", getLeftDimInInchString(metersInt, cmsInt));
+        //  Log.i("feet: ", getDimInFootString(metersInt, cmsInt));
+        //  Log.i("inch: ", getLeftDimInInchString(metersInt, cmsInt));
 
 
-            Toast.makeText(this, getDimInFootString(metersInt, cmsInt) + "' " + getLeftDimInInchString(metersInt, cmsInt) + "\"", Toast.LENGTH_LONG).show();
-            //Toast.makeText(this,"inch: "+getLeftDimInInchString(metersInt, cmsInt), Toast.LENGTH_LONG).show();
-            TextView signTextView = findViewById(R.id.textViewInSign);
-            signTextView.setText(getDimInFootString(metersInt, cmsInt) + "'-" + getLeftDimInInchString(metersInt, cmsInt) + "\"");
+//            Toast.makeText(this, getDimInFootString(metersInt, cmsInt) + "' " + getLeftDimInInchString(metersInt, cmsInt) + "\"", Toast.LENGTH_LONG).show();
+//            //Toast.makeText(this,"inch: "+getLeftDimInInchString(metersInt, cmsInt), Toast.LENGTH_LONG).show();
+//
+//            signTextView.setText(getDimInFootString(metersInt, cmsInt) + "'-" + getLeftDimInInchString(metersInt, cmsInt) + "\"");
 
 //        ImageView imageView = (ImageView) findViewById(R.id.imageHeight);
 //        imageView.setImageResource(R.drawable.signrestictionreightempty);
-            if (getDimInFoot(metersInt, cmsInt) > 16) {
-                Log.i("Too height! ", getDimInFootString(metersInt, cmsInt));
-                Toast.makeText(this, "No UK legal height limit but wherever possible a maximum of 4.95 metres should be adhered to in order to make maximum use of the motorway and trunk road network.", Toast.LENGTH_LONG).show();
+        //  if (getDimInFoot(metersInt, cmsInt) > 16) {
+        //   Log.i("Too height! ", getDimInFootString(metersInt, cmsInt));
+        //  Toast.makeText(this, "No UK legal height limit but wherever possible a maximum of 4.95 metres should be adhered to in order to make maximum use of the motorway and trunk road network.", Toast.LENGTH_LONG).show();
 
-                //textView = findViewById(R.id.textView);
-                show(textView);
-            }
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace();
-        } catch (NullPointerException e) {
-
-        } catch (Exception e) {
-
-        }
+        //textView = findViewById(R.id.textView);
+        // show(textView);
+//            }
+//        } catch (NumberFormatException ex) {
+//            ex.printStackTrace();
+//        } catch (NullPointerException e) {
+//
+//        } catch (Exception e) {
+//
+//        }
 
 //if(getDimInFoot(metersInt, cmsInt) < 16){
 //    hide(textView);
 //}
 
 
-    }
+        //  }
 
+    }
 
     private final double ratioMtoF = 3.2808399;
     private final double ratioInchToFoot = 0.0254;
@@ -150,9 +196,5 @@ public class MainActivity extends AppCompatActivity {
 //    Image.setImageResource(R.drowable.cat2);
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
     }
-}
